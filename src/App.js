@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import './App.css';
+import React, { Component } from 'react'
+import './App.css'
 
 let defaultStyle = {
   color: '#fff'
@@ -17,27 +17,27 @@ let fakeServerData = {
         ]
       },
       {
-        name: 'This is the good one',
+        name: 'This is the good Juan',
         songs: [
-          {name: 'Beat it', duration: 211345},
-          {name: 'Hola', duration: 123412},
-          {name: 'Halo', duration: 234567}
+          {name: 'Juan', duration: 211345},
+          {name: 'Eoin', duration: 123412},
+          {name: 'Steve', duration: 234567}
         ]
       },
       {
         name: 'Learning chinese',
         songs: [
-          {name: 'Beat it', duration: 211345},
-          {name: 'Hola', duration: 123412},
-          {name: 'Halo', duration: 234567}
+          {name: 'Xiexie', duration: 211345},
+          {name: 'Ni hao', duration: 123412},
+          {name: 'Dong', duration: 234567}
         ]
       },
       {
         name: 'This Juan isn\'t good',
         songs: [
-          {name: 'Beat it', duration: 211345},
-          {name: 'Hola', duration: 123412},
-          {name: 'Halo', duration: 234567}
+          {name: 'Despacito', duration: 211345},
+          {name: 'Gasolina', duration: 123412},
+          {name: 'Mayores', duration: 234567}
         ]
       }
     ]
@@ -50,7 +50,7 @@ class PlaylistCounter extends Component {
       <div style={{...defaultStyle, width: '40%', display: 'inline-block'}}>
         <h2>{this.props.playlists.length} playlists</h2>
       </div>
-    );
+    )
   }
 }
 
@@ -66,7 +66,7 @@ class HoursCounter extends Component {
       <div style={{...defaultStyle, width: '40%', display: 'inline-block'}}>
         <h2>{Math.round(totalDuration/60)} hours</h2>
       </div>
-    );
+    )
   }
 }
 
@@ -78,17 +78,22 @@ class Filter extends Component {
         <input type="text"/>
         Filter
       </div>
-    );
+    )
   }
 }
 
 class Playlist extends Component {
   render() {
+    let playlist = this.props.playlist
     return (
-      <div style={{...defaultStyle, display: 'inline-block', width: '30%'}}>
+      <div style={{...defaultStyle, display: 'inline-block', width: '25%'}}>
         <img/>
-        <h3>Playlist Name</h3>
-        <ul><li>Song 1</li><li>Song 2</li><li>Song 3</li></ul>
+        <h3>{playlist.name}</h3>
+        <ul>
+          {playlist.songs.map(song =>
+              <li>{song.name}</li>
+          )}
+        </ul>
       </div>
     )
   }
@@ -101,7 +106,7 @@ class App extends Component {
   }
   componentDidMount() {
     setTimeout(() => {
-    this.setState({serverData: fakeServerData});
+    this.setState({serverData: fakeServerData})
   }, 1000)
   }
 
@@ -116,14 +121,14 @@ class App extends Component {
           <PlaylistCounter playlists={this.state.serverData.user.playlists}/>
           <HoursCounter playlists={this.state.serverData.user.playlists}/>
           <Filter/>
-          <Playlist/>
-          <Playlist/>
-          <Playlist/>
+          {this.state.serverData.user.playlists.map(playlist =>
+            <Playlist playlist={playlist}/>
+          )}
         </div> : <h1 style={{...defaultStyle, 'font-size': '54px'}}>Loading...</h1>
         }
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
